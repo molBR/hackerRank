@@ -8,11 +8,8 @@ import (
 	"strings"
 	"regexp"
   )
-  
 
-func main() {
-
-
+func getInput() ([]string, int) {
 	reader := bufio.NewReader(os.Stdin)
 	text, _ := reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
@@ -20,7 +17,11 @@ func main() {
 	text, _ = reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
 	r := regexp.MustCompile("[^\\s]+")
-	allPairs :=r.FindAllString(text, -1)
+	arrayString :=r.FindAllString(text, -1)
+	return arrayString, n
+}
+
+func GetPairs(allPairs []string, n int) (int) {
 	mapPairs:=make(map[int]int)
 	for i:= 0; i<n;i++{
 		intPair,_:=strconv.Atoi(allPairs[i])
@@ -30,5 +31,13 @@ func main() {
 	for _, element := range mapPairs {
 		pairs = pairs + element / 2
 	}
+	return pairs
+	
+}
+
+func main() {
+
+	allPairs, n := getInput();
+	pairs:=GetPairs(allPairs, n)
 	fmt.Println(pairs)
 }
